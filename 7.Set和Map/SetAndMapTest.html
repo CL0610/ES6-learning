@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		
+		//Set
+		// let set= new Set();
+		// set.add(1);
+		// set.add('1');
+		
+		// console.log(set.size);//2		
+
+		// let set = new Set([1,2,3,3,3,3]);
+		// console.log(set.size);//3
+		// console.log(set.has(5)); //false
+
+		// set.delete(1);
+
+		// console.log(set.has(1)); //false
+		// console.log(set.size); //2
+
+
+		// let set = new Set([1,2,3,3,3,3]);
+		// let operation ={
+
+		// 	print(value){
+		// 		console.log(value);
+		// 	},
+
+		// 	iterate(set=[]){
+		// 		set.forEach((value,key)=>{
+		// 			this.print(value);
+		// 			this.print(key);
+		// 		})
+		// 	}
+
+		// }
+
+		// operation.iterate(set);
+
+		// let [...arr]=set;
+		// console.log(arr);
+
+		//强引用
+
+		// let set = new WeakSet();
+		// let key = {};	
+		// set.add(key);
+		// console.log(set.has(key)); //true
+		// set.delete(key);
+		// console.log(set.has(key)); //false
+
+		//Map的基本操作
+
+		// let map = new Map();
+		// map.set('title','hello world');
+		// map.set('year','2018');
+
+		// console.log(map.has('year')); //true
+		// map.delete('title');
+		// console.log(map.has('title')); //false
+		// map.clear();
+		// console.log(map.size); //0
+
+		// console.log(map.get('title'));
+
+		// console.log(map.size); //2
+
+		//使用数组来创建Map
+		// let map = new Map([['title','hello world'],['year','2018']]);
+		// map.forEach((value,key,ownerMap)=>{
+		// 	console.log(value);
+		// 	console.log(key);
+		// });
+
+
+		// console.log(map.has('title')); //true
+		// console.log(map.has('year')); //true
+		// console.log(map.size); //2
+
+		//使用数组来创建一个Weak Map
+		let key = {};
+		let key2 = {};
+		let map = new WeakMap([[key,'hello'],[key2,'world']]);
+		console.log(map.get(key)); //hello
+		console.log(map.get(key2)); //world
+
+		map.delete(key);
+		console.log(map.has(key));
+
+	</script>
+
+
+</body>
+</html>
