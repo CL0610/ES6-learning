@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		//生成器
+
+		// function*generator(){
+
+		// 	yield 1;
+		// 	yield 2;
+		// 	yield 3;
+		// }
+
+		// let iterator = generator();
+		// console.log(iterator.next().value);
+		// console.log(iterator.next().value);
+
+		// let arr = [1,2,3];
+		// // for(let num of arr){
+		// // 	console.log(num);
+		// // }
+
+		// //访问默认迭代器
+
+		// let iterator = arr[Symbol.iterator]();
+		// console.log(iterator.next().value);
+		// console.log(iterator.next().value);
+
+		//创建可迭代对象
+
+		// let obj = {
+		// 	items:[],
+
+		// 	*[Symbol.iterator](){
+		// 		for(let item of this.items){
+		// 			yield item;
+		// 		}
+		// 	}
+		// }
+
+		// obj.items.push(1);
+		// obj.items.push(2);
+
+		// for(let num of obj){
+		// 	console.log(num);
+		// }
+
+		//字符串默认迭代器
+		// let str ='A   B';
+		// for(let s of str){
+		// 	console.log(s);
+		// }
+
+		//扩展运算符可作用到所有可迭代对象
+		// let arr = [1,2,3];
+		// let arr2 = [7,8,9];
+		// let array = [...arr,5,...arr2];
+		// console.log(array);
+
+		//迭代器的高级功能,next()方法传递参数
+		// function * generator(){
+		// 	let first = yield 1;		
+		// 	let second = yield first+2;		
+		// 	let third = yield second+3;
+		// }
+
+		// let iterator = generator();
+		// console.log(iterator.next()); //{value: 1, done: false}
+		// console.log(iterator.next(4)); //{value: 6, done: false}
+		// console.log(iterator.next(5)); //{value: 8, done: false}
+		// console.log(iterator.next()); //{value: undefined, done: true}
+
+		//迭代器抛出错误
+
+		// function * generator(){
+		// 	let first = yield 1;
+		// 	let second;
+		// 	try{
+		// 		second = yield first+2;
+		// 	}catch(ex){
+		// 		second = 6
+		// 	}	
+		// 	let third = yield second+3;
+		// }
+
+
+		// let iterator = generator();
+		// console.log(iterator.next()); //{value: 1, done: false}
+		// console.log(iterator.next(4)); //{value: 6, done: false}
+		// console.log(iterator.throw(new Error('Error!'))); //{value: 9, done: false}
+		// console.log(iterator.next()); //{value: undefined, done: true}
+
+		//生成器的return语句
+
+
+		// function * gene(){
+		// 	yield 1;
+		// 	return 'finish';
+		// }
+
+		// let iterator = gene();
+		// console.log(iterator.next());//{value: 1, done: false}
+		// console.log(iterator.next());//{value: "finish", done: true}
+		// console.log(iterator.next());//{value: undefined, done: true}
+
+		//生成器委托
+
+		// function * gene1(){
+		// 	yield 'red';
+		// 	yield 'green';
+
+		// }
+		// function * gene2(){
+		// 	yield 1;
+		// 	yield 2;
+		// }
+
+		// function * combined(){
+		// 	yield * gene1();
+		// 	yield * gene2();
+		// }
+
+		// let iterator = combined();
+		// console.log(iterator.next());//{value: "red", done: false}
+		// console.log(iterator.next());//{value: "green", done: false}
+		// console.log(iterator.next());//{value: 1, done: false}
+		// console.log(iterator.next());//{value: 2, done: true}
+		// console.log(iterator.next());//{value: undefined, done: true}
+
+		// //利用生成器返回值
+
+		// function * gene1(){
+		// 	yield 1;
+		// 	return 2;
+		// }
+
+		// function * gene2(count){
+
+		// 	for(let i=0;i<count;i++){
+		// 		yield 'repeat';
+		// 	}
+		// }
+
+		// function * combined(){
+		// 	let result = yield * gene1();
+		// 	yield result;
+		// 	yield*gene2(result);
+		// }
+		// let iterator = combined();
+		// console.log(iterator.next());//{value: 1, done: false}
+		// console.log(iterator.next());//{value: 2, done: false}
+		// console.log(iterator.next());//{value: "repeat", done: false}
+		// console.log(iterator.next());//{value: "repeat", done: false}
+		// console.log(iterator.next());//{value: undefined, done: true}
+
+		// //任务执行器
+		// function run(taskDef) {
+		// 	// 创建迭代器，让它在别处可用
+		// 	let task = taskDef();
+		// 	// 启动任务
+		// 	let result = task.next();
+		// 	// 递归使用函数来保持对 next() 的调用
+		// 	function step() {
+		// 		// 如果还有更多要做的
+		// 		if (!result.done) {
+		// 			result = task.next(result.value);				
+		// 			console.log(result.value);
+		// 			step();
+		// 		}
+		// 	} 
+		// 	// 开始处理过程
+		// 	step();
+		// }
+
+
+		// run(function*() {
+		// 	let value = yield 1;
+		// 	yield value+5;
+		// });
+
+		//异步任务处理器
+
+		function run(taskDef){
+
+			//执行生成器，创建迭代器
+			let task = taskDef();
+			//启动任务
+			let result = task.next();
+
+			function step(){
+				while(!result.done){
+					if(typeof(result.value)==='function' ){
+						result.value(()=>{
+							console.log('hello world');
+						})
+					}					
+					result = task.next();
+					step();
+				}			
+			}
+			step();
+		}
+
+		
+		
+
+		run(function *(){
+			//返回一个能够返回执行回调函数的函数，并且回调函数还是该
+			//函数的参数
+			yield function(callback){
+				setTimeout(callback,3000);
+			}
+		});
+		
+
+	</script>
+
+
+</body>
+</html>
