@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		//类表达式
+		// let PersonClass = class {
+
+
+		// 	constructor(name){
+		// 		this.name = name;
+		// 	}
+		// 	sayName(){
+		// 		console.log(this.name);
+		// 	}
+			
+		// }
+
+		// let person = new PersonClass("hello class");
+		// person.sayName();
+
+		//类作为参数
+
+		// function createObj(classDef){
+		// 	return new classDef();
+		// }
+
+		// let obj = createObj(class{
+		// 	sayName(){
+		// 		console.log('hello');
+		// 	}
+		// })
+
+		// obj.sayName();
+
+
+		//立即调用构造器
+
+		// let person = new class{
+		// 	constructor(name){
+		// 		this.name = name;
+		// 	}
+		// 	sayName(){
+		// 		console.log(this.name);
+		// 	}
+		// }('hello world');
+
+		// person.sayName(); //hello world
+
+
+		//访问器属性
+
+		// class PersonClass{
+		// 	constructor(name){
+		// 		this.name = name;
+		// 	}
+		// 	get name(){
+		// 		return name;
+		// 	}
+
+		// 	set name(value){
+		// 		name=value;
+		// 	}
+		// }
+		// let person = new PersonClass('hello');
+		// console.log(person.name);
+		// person.name = 'world';
+		// console.log(person.name);
+		// let descriptor = Object.getOwnPropertyDescriptor(PersonClass.prototype,'name');
+		// console.log('get' in descriptor);
+
+		// //需计算属性名
+		// let methodName ='sayName';
+		// let propertyName = 'name';
+
+		// class PersonClass{
+		// 	constructor(name){
+		// 		this.name = name;
+		// 	}
+		// 	get [propertyName](){
+		// 		return name;
+		// 	}
+		// 	set [propertyName](value){
+		// 		name = value;
+		// 	}
+		// 	[methodName](){
+		// 		return console.log(this.name);
+		// 	}
+		// }
+		// let person = new PersonClass('hello world');
+		// person.sayName();
+		// console.log(person.name);
+
+		// //生成器方法：
+
+		// class GeneClass{
+
+		// 	*generator(){
+		// 		yield 1;
+		// 		yield 2;				
+		// 	}
+		// }
+
+		// let obj = new GeneClass();
+		// let iterator = obj.generator();
+		// console.log(iterator.next().value); //1
+		// console.log(iterator.next().value); //2
+		// console.log(iterator.next().value); //undefined
+
+
+		//自定义类的默认迭代器
+
+		// class Collection {
+		// 	constructor() {
+		// 		this.items = [];
+		// 	} 
+		// 	*[Symbol.iterator]() {
+		// 		for(let item of this.items){
+		// 			yield item;
+		// 		}				
+		// 	}
+		// } 
+		// let collection = new Collection();
+		// collection.items.push(1);
+		// collection.items.push(2);
+		// collection.items.push(3);
+		// for (let x of collection) {
+		// 	console.log(x);
+		// }
+
+		//静态成员
+
+		// class PersonClass {
+		// 	// 等价于 PersonType 构造器
+		// 	constructor(name) {
+		// 		this.name = name;
+		// 	}
+		// 	static create(name) {
+		// 		return new PersonClass(name);
+		// 	}
+		// }
+	
+		// let person = PersonClass.create("Nicholas");
+
+		// //类继承
+
+		// class Rec{
+		// 	constructor(width,height){
+		// 		this.width = width;
+		// 		this.height = height;
+		// 	}
+
+		// 	getArea(){
+		// 		return this.width*this.height;
+		// 	}
+
+		// }
+
+		// class Square extends Rec{
+		// 	constructor(width,height){
+		// 		super(width,height);
+		// 	}
+
+		// }
+
+		// let square = new Square(100,100);
+		// console.log(square.getArea()); //10000
+
+		// //从表达式中派生类
+
+		// let SerializableMixin = {
+		// serialize() {
+		// 	return JSON.stringify(this);
+		// }
+		// };
+		// let AreaMixin = {
+		// 	getArea() {
+		// 		return this.length * this.width;
+		// 	}
+		// };
+		// function mixin(...mixins) {
+		// 	var base = function() {};
+		// 	Object.assign(base.prototype, ...mixins);
+		// 	return base;
+		// } 
+		// class Square extends mixin(AreaMixin, SerializableMixin) {
+		// 	constructor(length) {
+		// 	super();
+		// 	this.length = length;
+		// 	this.width = length;
+		// 	}
+		// } 
+		// let x = new Square(3);
+		// console.log(x.getArea()); // 9
+		// console.log(x.serialize()); // "{"length":3,"width":3}"
+
+
+		//继承内置对象
+
+		// class MyArray extends Array {
+		// // 空代码块
+		// } 
+		// let colors = new MyArray();
+		// colors[0] = "red";
+		// console.log(colors.length); // 1
+		// colors.length = 0;
+		// console.log(colors[0]); // undefined
+
+
+		// Symbol.species
+	
+
+		// class MyClass {
+		// 	static get [Symbol.species]() {
+		// 		return this;
+		// 	} 
+		// 	constructor(value) {
+		// 		this.value = value;
+		// 	} 
+		// 	clone() {
+		// 		return new this.constructor[Symbol.species](this.value);
+		// 	}
+		// } 
+		// class MyDerivedClass1 extends MyClass {
+		// 	// 空代码块
+		// } 
+		// class MyDerivedClass2 extends MyClass {
+		// 	static get [Symbol.species]() {
+		// 		return MyClass;
+		// 	}
+		// } 
+		// let instance1 = new MyDerivedClass1("foo"),
+		// clone1 = instance1.clone(),
+		// instance2 = new MyDerivedClass2("bar"),
+		// clone2 = instance2.clone();
+		// console.log(clone1 instanceof MyClass); // true
+		// console.log(clone1 instanceof MyDerivedClass1); // true
+		// console.log(clone2 instanceof MyClass); // true
+		// console.log(clone2 instanceof MyDerivedClass2); // false
+
+		//new.target
+
+		class Rec{
+			constructor(){
+				if(new.target===Rec){
+					throw new Error('abstract class');
+				}
+			}
+		}
+
+		class Square extends Rec{
+
+		}
+
+		let rec = new Rec(); //Uncaught Error: abstract class
+		let square = new Square(); //不会报错
+
+	</script>
+
+
+</body>
+</html>
