@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		//创建未决的Promise
+		// let promise = new Promise(function(resolve,reject){
+		// 	console.log('hi, promise');
+		// 	resolve();
+
+		// });
+
+		// promise.then(()=>{
+		// 	console.log('hi, then');
+
+		// });
+
+		// console.log('hi');
+
+		//创建已决的Promise
+
+		// let promise = Promise.resolve('hi');
+		// promise.then((value)=>{
+		// 	console.log(value);
+		// });
+
+		// let reject = Promise.reject('reject');
+
+		// reject.catch((value)=>{
+		// 	console.log(value);
+		// })
+
+		//非Promise的thenable
+
+		// let thenable = {
+
+		// 	then:function(resolve,reject){
+		// 		reject('hi');
+		// 	}
+		// }
+
+		// let promise = Promise.resolve(thenable);
+		// promise.then(null,(value)=>{
+		// 	console.log(value);
+		// });
+
+		//执行器错误
+
+		// let promise = new Promise(function(resolve,reject){
+		// 	throw new Error('Error!');
+
+		// })
+
+		// promise.catch(function(msg){
+		// 	console.log(msg);
+		// })
+
+
+		//串联Promise
+
+		// let p1 = new Promise(function(resolve,reject){
+		// 	resolve('hi');
+		// });
+
+		// p1.then((value)=>{
+		// 	console.log(value);
+		// 	throw new Error('Error!');
+		// }).catch(function(error){
+		// 	console.log(error);
+		// })
+
+		// //Promise链传递值
+
+		// let p1 = new Promise(function(resolve,reject){
+		// 	resolve(1);
+		// })
+
+		// p1.then(value=>value+1)
+		// .then(value=>{
+		// 	console.log(value);
+		// })
+
+
+		//Promise链中传递Promise对象
+
+		// let p1 = new Promise(function(resolve,reject){
+		// 	resolve(1);
+		// });
+
+		// let p2 = new Promise(function(resolve,reject){
+		// 	reject(2);
+		// })
+
+		// p1.then(value=>{
+		// 	console.log(value);
+		// 	return p2;
+		// }).catch(value=>{
+		// 	console.log(value);
+		// });
+
+		// //Promise.all()
+		// let p1 = new Promise(function(resolve,reject){
+		// 	resolve(1);
+		// })
+
+		// let p2 = new Promise(function(resolve,reject){
+		// 	reject(2);
+		// })
+
+		// let p3 = new Promise(function(resolve,reject){
+		// 	resolve(3);
+		// })
+
+		// let p4 = Promise.all([p1,p2,p3]);
+		// p4.catch(value=>{
+		// 	console.log(Array.isArray(value)); //true
+		// 	console.log(value); //2
+		// })
+
+		//Promise.race()
+
+		// let p1 = new Promise(function(resolve,reject){
+		// 	resolve(1);
+		// })
+
+		// let p2 = new Promise(function(resolve,reject){
+		// 	resolve(2);
+		// })
+
+		// let p3 = new Promise(function(resolve,reject){
+		// 	resolve(3);
+		// })
+
+		// let p4 = Promise.race([p1,p2,p3]);
+		// p4.then(value=>{
+		// 	console.log(Array.isArray(value)); //false
+		// 	console.log(value); //1
+		// })
+
+		//继承Promise
+
+		class MyPromise extends Promise {
+		// 使用默认构造器
+		success(resolve, reject) {
+			return this.then(resolve, reject);
+		} 
+		failure(reject) {
+			return this.catch(reject);
+		}
+		} 
+		let promise = new MyPromise(function(resolve, reject) {
+			resolve(42);
+		});
+		promise.success(function(value) {
+			console.log(value); // 42
+		}).failure(function(value) {
+			console.log(value);
+		});
+
+	</script>
+
+
+</body>
+</html>
