@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		// //set陷阱函数
+		// let target = {
+		// 	name:'target'
+		// }
+		// let proxy = new Proxy(target,{
+		// 	set(tarpTarget,key,value,receiver){
+
+		// 		if(!tarpTarget.hasOwnProperty(key)){
+		// 			if(isNaN(value)){
+		// 				throw new Error('property must be number');
+		// 			}
+		// 		}
+		// 		return Reflect.set(tarpTarget,key,value,receiver);
+		// 	}
+		// });
+
+		// proxy.msg='hello proxy'; //Uncaught Error: property must be number
+
+		// //get陷阱函数
+
+		// let target={
+		// 	name:'hello world'
+		// }
+
+		// let proxy = new Proxy(target,{
+		// 		get(tarpTarget,key,receiver){
+		// 			if(!(key in tarpTarget)){
+		// 				throw new Error('不存在该对象');
+		// 			}
+		// 			return Reflect.get(tarpTarget,key,receiver);
+		// 		}
+		// 	});
+		// console.log(proxy.name); //hello world
+		// console.log(proxy.age); // Uncaught Error: 不存在该对象
+
+		// //has陷阱函数
+		// let target = {
+		// 	value:'hello world'
+		// }
+
+		// let proxy = new Proxy(target,{
+		// 	has(tarpTarget,key){
+		// 		if(Object.is(key,'value')){
+		// 			return false;
+		// 		}
+		// 		Reflect.has(tarpTarget,key);
+		// 	}
+		// })
+
+		// console.log('value' in proxy); //false
+
+		//deleteProperty陷阱函数
+
+
+		// let target = {
+		// 	name: "target",
+		// 	value: 42
+		// };
+		// let proxy = new Proxy(target, {
+		// 	deleteProperty(trapTarget, key) {
+		// 		if (key === "value") {
+		// 			return false;
+		// 		} else {
+		// 			return Reflect.deleteProperty(trapTarget, key);
+		// 		}
+		// 	}
+		// });
+		// // 尝试删除 proxy.value
+		// console.log("value" in proxy); // true
+		// let result1 = delete proxy.value;
+		// console.log(result1); // false
+
+
+		// //原型代理上的陷阱函数
+
+		// let target = {};
+		// let proxy = new Proxy(target, {
+		// 	getPrototypeOf(trapTarget) {
+		// 		return null;
+		// 	},
+		// 	setPrototypeOf(trapTarget, proto) {
+		// 		return false;
+		// 	}
+		// });
+		// let targetProto = Object.getPrototypeOf(target);
+		// let proxyProto = Object.getPrototypeOf(proxy);
+		// console.log(targetProto === Object.prototype); // true
+		// console.log(proxyProto === Object.prototype); // false
+		// console.log(proxyProto); // null
+		// // 成功
+		// Object.setPrototypeOf(target, {});
+		// // 抛出错误
+		// Object.setPrototypeOf(proxy, {});
+
+		//对象可扩展性的陷阱函数
+
+
+		// let target = {};
+		// let proxy = new Proxy(target, {
+		// 	isExtensible(trapTarget) {
+		// 	return Reflect.isExtensible(trapTarget);
+		// 	},
+		// 	preventExtensions(trapTarget) {
+		// 	return false
+		// 	}
+		// });
+		// console.log(Object.isExtensible(target)); // true
+		// console.log(Object.isExtensible(proxy)); // true
+		// Object.preventExtensions(proxy);
+		// console.log(Object.isExtensible(target)); // true
+		// console.log(Object.isExtensible(proxy)); // true
+
+		//defineProperty
+
+		// let proxy = new Proxy({}, {
+		// 	defineProperty(trapTarget, key, descriptor) {
+		// 	if (!isNaN(key)) {
+		// 		return false;
+		// 	} 
+		// 	return Reflect.defineProperty(trapTarget, key, descriptor);
+		// 	}
+		// });
+		// Object.defineProperty(proxy,'name',{
+		// 	value:'hello world'
+		// })
+		// console.log(proxy.name); // "proxy"
+		
+		// Object.defineProperty(proxy,'age',{
+		// 	value:20
+		// })
+		// console.log(proxy.age); // "proxy"
+
+		// //apply和construct陷阱函数
+
+		// let sum = function (arr=[]) {
+		// 	return arr.reduce((previous,current)=>previous+current);
+		// }
+
+		// let proxy = new Proxy(sum,{
+		// 	apply(trapTarget,thisArg,argumentList){
+		// 		argumentList[0].forEach((item)=>{
+		// 			if(typeof item != 'number'){
+		// 				throw new Error('不是数字类型');
+		// 			}
+		// 		})
+		// 		return Reflect.apply(trapTarget,thisArg,argumentList);
+		// 	},
+
+		// 	construct(trapTarget,argumentList){
+		// 		throw new Error('不能使用new');
+		// 	}
+		// });
+
+
+		// console.log(proxy([1,2,3,4])); // 10
+		// console.log(proxy([1, "2", 3, 4]));//Uncaught Error: 不是数字类型Uncaught Error: 不是数字类型
+		// let result = new proxy(); //Uncaught Error: 不能使用new
+
+		//可被插销的代理
+
+		// let target = {
+		// 	name: "target"
+		// };
+		// let { proxy, revoke } = Proxy.revocable(target, {});
+		// console.log(proxy.name); // "target"
+		// revoke();
+		// // 抛出错误
+		// console.log(proxy.name);
+
+
+		//原型上使用get陷阱函数
+
+		// let target = {};
+		// let newTarget  = Object.create(new Proxy(
+		// 	target,{
+		// 		get(trapTarget,key,receiver){
+		// 			throw new Error('不存在该属性');
+		// 		}
+		// 	}
+		// ));
+
+		// newTarget.name = 'hello world';
+		// console.log(newTarget.name); //hello world
+
+		// console.log(newTarget.age); //Uncaught Error: 不存在该属性
+
+		//代理对象作为类的原型
+
+		function NoSuchProperty() {
+			// empty
+		} 
+		NoSuchProperty.prototype = new Proxy({}, {
+			get(trapTarget, key, receiver) {
+				throw new ReferenceError(`${key} doesn't exist`);
+			}
+		});
+		class Square extends NoSuchProperty {
+			constructor(length, width) {
+				super();
+				this.length = length;
+				this.width = width;
+			}
+		} 
+		let shape = new Square(2, 6);
+		let area1 = shape.length * shape.width;
+		console.log(area1); // 12
+		// 由于 "wdth" 不存在而抛出了错误
+		let area2 = shape.length * shape.wdth;
+
+
+
+
+
+	</script>
+
+
+</body>
+</html>
