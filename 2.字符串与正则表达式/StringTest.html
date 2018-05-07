@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		
+		//codePointAt()
+
+		// var text = "a" ;
+		// console.log(text.charCodeAt(0)); // 55362
+		// console.log(text.charCodeAt(1)); // 57271
+		// console.log(text.charCodeAt(2)); // 97
+
+		// console.log(text.codePointAt(0)); // 134071
+		// console.log(text.codePointAt(1)); // 57271
+		// console.log(text.codePointAt(2)); // 97
+
+
+		//normalize()方法
+
+		// let compare = function(values=[]){
+		// 	values.sort((first,second)=>{
+		// 		let firstNormalized = first.normalize();
+		// 		let secondNormalized = second.normalize();
+
+		// 		if (firstNormalized < secondNormalized) {
+		// 			return -1;
+		// 		} else if (firstNormalized === secondNormalized) {
+		// 			return 0;
+		// 		} else {
+		// 			return 1;
+		// 		}
+		// 	})
+
+		// }
+
+		// let arr = ['a','z','c','g'];
+		// compare(arr);
+		// console.log(arr);//["a", "c", "g", "z"]
+
+
+		// //repeat()方法
+
+		// console.log('x'.repeat(3)); //xxx
+		// console.log('hello world'.repeat(2)); //hello worldhello world
+
+		//模板字面量
+
+		// let  message = `\`hello world\``;
+		// console.log(message); //`hello world`
+		// console.log(typeof message); //string
+		// console.log(message.length); //1
+
+		// let message = `hello
+
+		// world`;
+		// console.log(message);
+
+
+		//模板字面量
+
+		// let msg = 'hello';
+		// let message = `${msg} world`;
+		// console.log(message); //hello world
+
+		// let message1 = `Multiline\nstring`,
+		// message2 = String.raw`Multiline\nstring`;
+		// console.log(message1); // "Multiline
+		// 					   // string"
+		// console.log(message2); // "Multiline\nstring"
+
+
+		var re = /ab/g;
+		console.log(re.source); // ab
+		console.log(re.flags); // g
+
+	</script>
+
+
+</body>
+</html>
