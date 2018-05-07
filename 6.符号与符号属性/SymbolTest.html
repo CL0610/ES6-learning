@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		
+		// let firstName = Symbol('first Name');
+		// let person = {};
+		// person[firstName] = 'hello world';
+		// console.log(person[firstName]); //hello world
+		// console.log(firstName); //Symbol(first Name)
+
+		//共享符号值
+
+		// let uid = Symbol.for('uid');
+		// let person = {};
+		// person[uid] = 'hello';
+
+		// let symbols = Object.getOwnPropertySymbols(person);
+		// console.log(symbols.length); //1
+		// console.log(symbols[0]); //Symbol(uid)
+
+
+		// let id = Symbol.for('uid');
+		// let car = {};
+		// car[id] = '88888888';
+
+		// console.log(uid===id); //true
+
+		// console.log(Symbol.keyFor(uid)); //uid
+		// console.log(Symbol.keyFor(id)); //uid
+
+		// console.log(String(uid));//Symbol(uid)
+		// console.log(uid+""); //Uncaught TypeError: Cannot convert a Symbol value to a string
+
+		// //Symbol.isConcatSpreadable属性
+
+		// let collection = {
+		// 	0:'hello',
+		// 	1:'world',
+		// 	length:2,
+		// 	[Symbol.isConcatSpreadable]:true
+		// }
+
+		// let arr = ['es6'].concat(collection);
+		// console.log(arr); //["es6", "hello", "world"]
+
+
+		// function Temperature(degrees) {
+		// 	this.degrees = degrees;
+		// } 
+		// Temperature.prototype[Symbol.toPrimitive] = function(hint) {
+		// 	switch (hint) {
+		// 		case "string":
+		// 			return this.degrees + "\u00b0"; // 温度符号
+		// 		case "number":
+		// 			return this.degrees;
+		// 		case "default":
+		// 			return this.degrees + " degrees";
+		// 	}
+		// };
+		// let freezing = new Temperature(32);
+		// console.log(freezing + "!"); // "32 degrees!"
+		// console.log(freezing / 2); // 16
+		// console.log(String(freezing)); // "32°"
+
+		// function Person(name){
+		// 	this.name = name;
+		// }
+
+
+		// Person.prototype[Symbol.toStringTag] = 'person';
+		// let person = new Person('hello world');
+		// console.log(person.toString()); //[object person]
+
+
+		// 默认内置在 ES6 中
+		Array.prototype[Symbol.unscopables] = Object.assign(Object.create(null), {
+			copyWithin: true,
+			entries: true,
+			fill: true,
+			find: true,
+			findIndex: true,
+			keys: true,
+			values: true
+		});
+	</script>
+
+</body>
+</html>
