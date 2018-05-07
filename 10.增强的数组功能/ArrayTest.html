@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		
+		// let arr = Array.of(1,5,8,9);
+
+		// console.log(arr.find(item=>item>5)); //8
+		// console.log(arr.findIndex(item=>item>5)); //2
+
+
+		//fill()
+
+		// let arr = Array.of(1,5,8,9);
+		// console.log(arr.fill(1,2,4)); //[1, 5, 1, 1]
+		// //copyWithin()
+		// console.log(arr.copyWithin(2,0,2)); //[1, 5, 1, 5]
+
+
+		// let buffer = new ArrayBuffer(10);
+		// console.log(buffer.byteLength); //10
+
+		// let buf = buffer.slice(4,8);
+		// console.log(buf.byteLength); //4
+
+
+		// let buffer = new ArrayBuffer(2),
+		// view = new DataView(buffer);
+
+		// view.setInt8(0,1);
+		// console.log(view.getInt8(0)); //1
+
+		let arr = new Int8Array(2);
+		console.log(arr.length);
+		arr[3] = 1;
+		console.log(arr[3]);
+
+	</script>
+
+</body>
+</html>
